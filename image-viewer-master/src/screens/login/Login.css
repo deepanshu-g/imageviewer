@@ -1,0 +1,15 @@
+.red{
+    color:red;
+}
+.dispNone{
+    display: none;
+}
+
+.dispBlock{
+   display: block;
+}
+
+.mainController{
+    display: flex;
+    flex-direction: column;
+}

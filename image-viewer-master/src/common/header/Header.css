@@ -1,0 +1,14 @@
+.app-header {
+    background-color:#263238;
+    height: 68px;
+}
+
+.headerWords{
+    color: #fff;
+    padding-top: 15px;
+    padding-bottom: 12px;
+    padding-left: 20px;
+    float: left;
+    vertical-align: center;
+    font-size: 18px;
+}

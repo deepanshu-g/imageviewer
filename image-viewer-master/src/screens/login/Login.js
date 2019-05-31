@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import './Login.css'
 
-
+// Styles for Cards
 const styles = {
     card: {
         padding: '25px',
@@ -25,6 +25,7 @@ const styles = {
     }
 };
 
+//Login Class
 class Login extends Component {
     constructor() {
         super();
@@ -40,6 +41,7 @@ class Login extends Component {
         };
     }
 
+    ///This Handler will be implemented after clicking on the LOGIN button
     loginButtonClickHandler = () => {
         this.setState({ incorrectCredentials: "dispNone" });
         this.state.username === "" ? this.setState({ userNameRequired: "dispBlock" }) : this.setState({ userNameRequired: "dispNone" });
@@ -60,6 +62,7 @@ class Login extends Component {
         }
     }
 
+    //Navigates to home page, this will be called when the user enters the right credentials
     goToHomePage = () => {
         this.props.history.push('/home');
     }
@@ -72,12 +75,12 @@ class Login extends Component {
         this.setState({ password: e.target.value })
     }
 
-
-
+    // main render function of Login functionality
     render() {
         return (
             <div class="mainController">
                 <Header />
+                
                 <Card style={styles.card}>
                     <CardContent>
                         <Typography style={styles.title}>LOGIN</Typography>

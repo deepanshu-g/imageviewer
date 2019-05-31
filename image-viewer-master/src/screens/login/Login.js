@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{ Component } from 'react';
 import Header from '../../common/header/Header';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -13,15 +13,15 @@ import './Login.css'
 
 const styles={
     card:{
-        padding:'20px',
-        top:'100px',
+        padding:'15px',
+        top:'90px',
         left:'50%',
-        width:'350px',
+        width:'325px',
         position:'relative',
-        transform:'translateX(-50%)'
+        transform:'translateX(-50%)',
     },
     title:{
-        fontSize:25
+        fontSize:35
     }
 };
 
@@ -29,10 +29,11 @@ class Login extends Component{
     constructor(){
         super();
         this.state={
+            username:"",
             userNameRequired:"dispNone",
+            password:"",            
             passwordRequired:"dispNone",
-            userName:"",
-            password:"",
+            
             incorrectCredentials:"dispNone",
             loggedIn:sessionStorage.getItem('access-token') == null ? false : true
 
@@ -40,14 +41,15 @@ class Login extends Component{
     }
 
     loginButtonClickHandler = () => {
-        this.state.userName === ""? this.setState({userNameRequired:"dispBlock"}) : this.setState({userNameRequired:"dispNone"});
+        this.setState({incorrectCredentials:"dispNone"});
+        this.state.username === ""? this.setState({userNameRequired:"dispBlock"}) : this.setState({userNameRequired:"dispNone"});
         this.state.password === ""? this.setState({passwordRequired:"dispBlock"}) : this.setState({passwordRequired:"dispNone"});
-
-        if(this.state.userName === "" || this.state.password === ""){
+        
+        if(this.state.username === "" || this.state.password === ""){
             return
         }
 
-        if(this.state.userName === "aravind" && this.state.password === "password"){
+        if(this.state.username === "aravind" && this.state.password === "password"){
             sessionStorage.setItem('username','aravind');
             sessionStorage.setItem('access-token','14175697527.0fb87b1.c09c3615c3444216bd1c44ce25d5cc50');
             this.setState({loggedIn:true});
@@ -63,7 +65,7 @@ class Login extends Component{
     }
 
     inputUserNameChangeHandler = (e) => {
-        this.setState({ userName : e.target.value})
+        this.setState({ username : e.target.value})
     }
 
     inputPasswordChangeHandler =(e) => {
@@ -81,24 +83,25 @@ class Login extends Component{
                         <Typography style={styles.title}>LOGIN</Typography>
                         <br/><br/>
                                    
-                        <FormControl required>
+                        <FormControl required style={{width: '100%'}}>
                             <InputLabel htmlFor="username">Username</InputLabel>
                             <Input id="username" type="text" username = {this.state.userName} onChange={this.inputUserNameChangeHandler}/>
                             <FormHelperText className={this.state.userNameRequired}><span className="red">required</span></FormHelperText>
                         </FormControl>
 
                         <br/><br/>
-                        <FormControl required>
+                        <FormControl required style={{width:'100%'}}>
                         <InputLabel htmlFor="password">Password</InputLabel>
                             <Input id="password" type="password" onChange={this.inputPasswordChangeHandler}/>
                             <FormHelperText className={this.state.passwordRequired}><span className="red">required</span></FormHelperText>
                         </FormControl>
+                        <br/><br/>
                         <div className={this.state.incorrectCredentials}><span className="red">Incorrect username and/or password</span></div><br/>            
                         <Button variant="contained" color="primary" onClick={this.loginButtonClickHandler}>LOGIN</Button>
-                </CardContent>
+                    </CardContent>
                 </Card>
             </div>
-        );
+        )
     }
 }
 

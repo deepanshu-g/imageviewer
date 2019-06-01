@@ -16,3 +16,7 @@
   justify-content: space-around;
   align-items: flex-start;
 }
+.horizpontal-rule{
+  margin:10px;
+  background-color:"#FF5722"
+}

@@ -53,7 +53,7 @@ class Login extends Component {
 
         if (this.state.username === "aravind" && this.state.password === "password") {
             sessionStorage.setItem('username', 'aravind');
-            sessionStorage.setItem('access-token', '14175697527.0fb87b1.c09c3615c3444216bd1c44ce25d5cc50');
+            sessionStorage.setItem('access-token', '13521022383.d5e23ae.c9785a17269b494eb996c2cbc490a6f3');
             this.setState({ loggedIn: true });
             this.goToHomePage();
         }
@@ -79,7 +79,7 @@ class Login extends Component {
     render() {
         return (
             <div class="mainController">
-                <Header />
+                <Header screen={"Login"}/>
                 
                 <Card style={styles.card}>
                     <CardContent>

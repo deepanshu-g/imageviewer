@@ -20,6 +20,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import {constants} from '../../common/utils'
 
+
 const styles =  theme => ({
   card: {
     maxWidth: 1100,
@@ -119,8 +120,8 @@ class Home extends Component{
     })
     this.setState({
       filteredData
-    })
-  }
+
+  })}
 
   likeClickHandler = (id) =>{
     console.log('like id',id);
@@ -173,14 +174,13 @@ class Home extends Component{
   }
 
   getUserInfo = () => {
-    let that = this;
     let url = `${constants.userInfoUrl}/?access_token=${sessionStorage.getItem('access-token')}`;
     return fetch(url,{
       method:'GET',
     }).then((response) =>{
         return response.json();
     }).then((jsonResponse) =>{
-      that.setState({
+      this.setState({
         userData:jsonResponse.data
       });
     }).catch((error) => {
@@ -189,14 +189,13 @@ class Home extends Component{
   }
 
   getMediaData = () => {
-    let that = this;
     let url = `${constants.userMediaUrl}/?access_token=${sessionStorage.getItem('access-token')}`;
     return fetch(url,{
       method:'GET',
     }).then((response) =>{
         return response.json();
     }).then((jsonResponse) =>{
-      that.setState({
+      this.setState({
         data:jsonResponse.data,
         filteredData:jsonResponse.data
       });
@@ -216,8 +215,8 @@ class Home extends Component{
 }
 
 class HomeItem extends Component{
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
       isLiked : false,
       comment:'',
@@ -226,6 +225,7 @@ class HomeItem extends Component{
 
   render(){
     const {classes, item, comments} = this.props;
+    const captionText = item && item.caption && item.caption.text && item.caption.text.split('#');
 
     let createdTime = new Date(0);
     createdTime.setUTCSeconds(item.created_time);
@@ -255,12 +255,15 @@ class HomeItem extends Component{
             <CardMedia
               className={classes.media}
               image={item.images.standard_resolution.url}
-              title={item.caption.text}
+              title={(item&&item.caption&&item.caption.text)?item.caption.text:null}
+              
             />
+
             <div  className={classes.hr}>
-              <Typography component="p">
-                {item.caption.text}
-              </Typography>
+            <Typography component="p">
+            {captionText && captionText[0]}
+            
+            </Typography>
               <Typography style={{color:'#4dabf5'}} component="p" >
                 {hashTags.join(' ')}
               </Typography>
@@ -295,10 +298,11 @@ class HomeItem extends Component{
                 <InputLabel htmlFor="comment">Add Comment</InputLabel>
                 <Input id="comment" value={this.state.comment} onChange={this.commentChangeHandler}/>
               </FormControl>
+              <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
               <FormControl>
                 <Button onClick={this.onAddCommentClicked.bind(this,item.id)}
                    variant="contained" color="primary">
-                  ADD
+                ADD
                 </Button>
               </FormControl>
             </div>
